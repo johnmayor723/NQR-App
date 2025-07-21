@@ -1,23 +1,37 @@
 import React, { useContext, useState } from 'react';
 import { View, StyleSheet, Image, KeyboardAvoidingView } from 'react-native';
-import { Text, TextInput, Button } from 'react-native-paper';
+import { Text, TextInput, Button, useTheme } from 'react-native-paper';
 import { Feather } from '@expo/vector-icons';
 import { AuthContext } from '../context/AuthContext';
 
 export default function HomeScreen({ navigation }) {
   const { operator } = useContext(AuthContext);
   const [amount, setAmount] = useState('');
-
-  const primaryColor = operator?.primaryColor || '#FF6B00'; // orange
+  const theme = useTheme();
+  const primaryColor = operator?.primaryColor || theme.colors.primary; // orange
   const secondaryColor = operator?.secondaryColor || '#C8FF00'; // lemon
 
   return (
-    <KeyboardAvoidingView style={[styles.container, { backgroundColor: '#fff' }]} behavior="padding">
+    <KeyboardAvoidingView
+      style={[styles.container, { backgroundColor: '#fff' }]}
+      behavior="padding"
+    >
       <View style={styles.header}>
+        {/* Back arrow */}
+        <TouchableOpacity onPress={() => navigation.replace('Onboarding')}>
+          <Feather name="arrow-left" size={24} color={primaryColor} />
+        </TouchableOpacity>
+
+        {/* Logo */}
         {operator?.logoUri && (
           <Image source={{ uri: operator.logoUri }} style={styles.logo} />
         )}
-        <Text variant="titleLarge" style={{ color: primaryColor, fontWeight: 'bold' }}>
+
+        {/* Title */}
+        <Text
+          variant="titleLarge"
+          style={{ color: primaryColor, fontWeight: 'bold', fontSize: 24 }}
+        >
           Make Payment
         </Text>
       </View>
