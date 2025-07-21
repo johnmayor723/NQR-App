@@ -69,7 +69,7 @@ export default function PaymentOptionScreen({ route, navigation }) {
           marginBottom: 20,
         }}
       >
-        for ₦{amount || '0.00'}
+        Pay ₦{amount || '0.00'}
       </Text>
 
       {/* FlatList */}
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   listContent: {
-    paddingTop: 30, // creates space between header and list
+    paddingTop: 50, // creates space between header and list
   },
   optionCard: {
     flex: 1,
