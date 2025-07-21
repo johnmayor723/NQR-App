@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { View, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
+import { Text, useTheme, IconButton } from 'react-native-paper';
 import { AuthContext } from '../context/AuthContext';
 
 const paymentOptions = [
@@ -10,7 +10,7 @@ const paymentOptions = [
   { key: 'transfer', label: 'Transfer' },
 ];
 
-export default function PaymentOptionScreen({ route }) {
+export default function PaymentOptionScreen({ route, navigation }) {
   const { amount } = route.params;
   const { operator } = useContext(AuthContext);
   const theme = useTheme();
@@ -22,13 +22,16 @@ export default function PaymentOptionScreen({ route }) {
     <TouchableOpacity
       style={[
         styles.optionCard,
-        { borderColor: primaryColor, backgroundColor: '#fff' },
+        { backgroundColor: primaryColor },
       ]}
       onPress={() => {
         // Placeholder: Handle navigation or modal here
       }}
     >
-      <Text variant="titleMedium" style={{ color: primaryColor, fontWeight: 'bold' }}>
+      <Text
+        variant="titleMedium"
+        style={{ color: '#fff', fontWeight: 'bold', fontSize: 18 }}
+      >
         {item.label}
       </Text>
     </TouchableOpacity>
@@ -36,25 +39,46 @@ export default function PaymentOptionScreen({ route }) {
 
   return (
     <View style={styles.container}>
+      {/* Header */}
+      <View style={styles.headerContainer}>
+        <IconButton
+          icon="arrow-left"
+          size={28}
+          iconColor={primaryColor}
+          onPress={() => navigation.goBack()}
+        />
+        <Text
+          variant="titleLarge"
+          style={{
+            color: primaryColor,
+            fontWeight: 'bold',
+            fontSize: 26,
+            marginLeft: 10,
+          }}
+        >
+          Payment Options
+        </Text>
+      </View>
+
       <Text
-        variant="titleLarge"
         style={{
           color: primaryColor,
-          marginBottom: 20,
-          fontWeight: 'bold',
-          fontSize: 24,
+          fontWeight: '600',
+          fontSize: 18,
           textAlign: 'center',
+          marginBottom: 20,
         }}
       >
-        Payment Options for ₦{amount || '0.00'}
+        for ₦{amount || '0.00'}
       </Text>
 
+      {/* FlatList */}
       <FlatList
         data={paymentOptions}
         keyExtractor={(item) => item.key}
         renderItem={renderItem}
-        contentContainerStyle={{ gap: 15 }}
-        ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+        contentContainerStyle={styles.listContent}
+        ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
       />
     </View>
   );
@@ -65,12 +89,18 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#fff',
-    justifyContent: 'center',
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 15,
+  },
+  listContent: {
+    paddingTop: 30, // creates space between header and list
   },
   optionCard: {
     flex: 1,
-    padding: 20,
-    borderWidth: 2,
+    paddingVertical: 25,
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
