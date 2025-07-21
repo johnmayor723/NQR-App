@@ -22,18 +22,26 @@ export default function OnboardingScreen({ navigation }) {
       alert('Permission to access media library is required.');
       return;
     }
-    const result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ImagePicker.MediaTypeOptions.Images, allowsEditing: true });
-    if (!result.cancelled) {
-      setLogoUri(result.uri);
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 0.7,
+    });
+    if (!result.canceled) {
+      setLogoUri(result.assets[0].uri);
     }
   };
 
   const handleSubmit = async () => {
-    if (!companyName || !tid || !companyEmail) {
-      alert('Please fill in all required fields.');
-      return;
-    }
     setLoading(true);
+
+    // Skipping validation and API connection for now
+    // Navigate to Home immediately for testing flow
+    navigation.replace('Home');
+
+    // If you want to reconnect API later, use this structure:
+    /*
     const operatorData = {
       companyName,
       tids: [tid],
@@ -46,17 +54,23 @@ export default function OnboardingScreen({ navigation }) {
       const res = await onboardOperator(operatorData);
       saveOperator(res.operator);
       navigation.replace('Home');
-   l } catch (err) {
+    } catch (err) {
       console.error(err);
       alert('Onboarding failed.');
     } finally {
       setLoading(false);
     }
+    */
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text variant="titleLarge" style={{ marginBottom: 20 }}>Operator Onboarding</Text>
+      <Text
+        variant="titleLarge"
+        style={{ marginBottom: 20, fontWeight: 'bold', fontSize: 24 }}
+      >
+        Operator Onboarding
+      </Text>
 
       <Button mode="outlined" icon="image" onPress={pickImage} style={styles.button}>
         {logoUri ? "Change Logo" : "Upload Logo"}
@@ -115,7 +129,13 @@ export default function OnboardingScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flexGrow: 1, padding: 20, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff' },
+  container: {
+    flexGrow: 1,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff'
+  },
   input: { width: '100%', marginBottom: 10 },
   button: { marginVertical: 10, width: '100%' },
   logo: { width: 150, height: 150, borderRadius: 10, marginVertical: 15 },
