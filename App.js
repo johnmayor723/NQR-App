@@ -6,7 +6,7 @@ import OnboardingScreen from './screens/OnboardingScreen';
 import HomeScreen from './screens/HomeScreen';
 import QRPaymentScreen from './screens/QRPaymentScreen';
 import PaymentStatusScreen from './screens/PaymentStatusScreen';
-import PaymentStatusScreen from './screens/PaymentOptionScreen';
+import PaymentOptionScreen from './screens/PaymentOptionScreen';
 
 
 const Stack = createStackNavigator();
@@ -20,7 +20,7 @@ export default function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="QRPayment" component={QRPaymentScreen} />
           <Stack.Screen name="PaymentStatus" component={PaymentStatusScreen} />
-          <Stack.Screen name="PaymentStatus" component={PaymentOptionScreen} />
+          <Stack.Screen name="PaymentOption" component={PaymentOptionScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>
