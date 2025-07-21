@@ -67,7 +67,7 @@ export default function OnboardingScreen({ navigation }) {
     <ScrollView contentContainerStyle={styles.container}>
       <Text
         variant="titleLarge"
-        style={{ marginBottom: 20, fontWeight: 'bold', fontSize: 24 }}
+        style={{ marginBottom: 20, color: theme.colors.primary, fontWeight: 'bold', fontSize: 24 }}
       >
         Operator Onboarding
       </Text>
