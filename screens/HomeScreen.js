@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, StyleSheet, Image, KeyboardAvoidingView } from 'react-native';
+import { View, StyleSheet, Image, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { Text, TextInput, Button, useTheme } from 'react-native-paper';
 import { Feather } from '@expo/vector-icons';
 import { AuthContext } from '../context/AuthContext';
